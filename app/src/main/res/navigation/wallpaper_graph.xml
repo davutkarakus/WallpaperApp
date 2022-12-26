@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/wallpaper_graph"
+    app:startDestination="@id/wallPaperListFragment">
+
+    <fragment
+        android:id="@+id/wallPaperListFragment"
+        android:name="com.davutkarakus.wallpaper_kotlin.view.wallPaperListFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_wall_paper_list">
+        <action
+            android:id="@+id/action_wallPaperListFragment_to_wallPaperAcFragment"
+            app:destination="@id/wallPaperAcFragment"
+            app:enterAnim="@anim/enter_right_to_left" />
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/wallPaperAcFragment"
+        android:name="com.davutkarakus.wallpaper_kotlin.view.wallPaperAcFragment"
+        android:label=""
+        tools:layout="@layout/fragment_wall_paper_ac" >
+        <action
+            android:id="@+id/action_wallPaperAcFragment_to_wallPaperListFragment"
+            app:destination="@id/wallPaperListFragment"
+            app:enterAnim="@anim/enter_left_to_right" />
+        <argument android:name="position"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_wallPaperAcFragment_self"
+            app:destination="@id/wallPaperAcFragment" />
+        <argument
+            android:name="url"
+            app:argType="com.davutkarakus.wallpaper_kotlin.model.newWallpaperModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriFragment"
+        android:name="com.davutkarakus.wallpaper_kotlin.view.favoriFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favori" >
+        <action
+            android:id="@+id/action_favoriFragment_to_favoriWallpaperAcFragment"
+            app:destination="@id/favoriWallpaperAcFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriWallpaperAcFragment"
+        android:name="com.davutkarakus.wallpaper_kotlin.view.favoriWallpaperAcFragment"
+        android:label=""
+        tools:layout="@layout/fragment_favori_wallpaper_ac" >
+        <argument
+            android:name="position"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_favoriWallpaperAcFragment_to_favoriFragment"
+            app:destination="@id/favoriFragment" />
+    </fragment>
+</navigation>

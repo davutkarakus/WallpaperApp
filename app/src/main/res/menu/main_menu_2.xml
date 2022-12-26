@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/arka_plan_yap_2"
+        android:title="Arka Plan Olarak Ayarla"
+        app:showAsAction="always"
+
+        ></item>
+    <item
+        android:id="@+id/favori_cikar"
+        android:title="Favorilerden Çıkar"
+        app:showAsAction="always"></item>
+</menu>
