@@ -8,16 +8,18 @@
     android:paddingRight="10dp"
     android:paddingLeft="10dp"
   >
-
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    app:cardCornerRadius="20dp">
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/round_outline"
         android:backgroundTint="@color/black"
         android:clipToOutline="true"
         android:scaleType="fitXY"
-
         ></ImageView>
+</androidx.cardview.widget.CardView>
 
 </LinearLayout>
