@@ -13,8 +13,6 @@ import com.davutkarakus.wallpaper_kotlin.view.MainFragmentDirections
 import kotlinx.android.synthetic.main.recycler_row.view.imageView
 
 class recyclerAdapter(val wpList:NewWallpaperModel):RecyclerView.Adapter<recyclerAdapter.RvHolder>() {
-
-
     class RvHolder(itemView:View):RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RvHolder {
@@ -28,10 +26,8 @@ class recyclerAdapter(val wpList:NewWallpaperModel):RecyclerView.Adapter<recycle
         holder.itemView.imageView.setOnClickListener {
             val action=MainFragmentDirections.actionWallPaperListFragmentToWallPaperAcFragment(position,wpList)
             Navigation.findNavController(it).navigate(action)
-
         }
     }
-
     override fun getItemCount(): Int {
          return wpList.photos.size
     }

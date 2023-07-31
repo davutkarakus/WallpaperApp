@@ -31,12 +31,10 @@ class WallPaperViewModel:ViewModel() {
                         bilgiler.value=t
                         hataMesaji.value=false
                     }
-
                     override fun onError(e: Throwable) {
                         hataMesaji.value=true
                         e.printStackTrace()
                     }
-
                 })
         )
     }

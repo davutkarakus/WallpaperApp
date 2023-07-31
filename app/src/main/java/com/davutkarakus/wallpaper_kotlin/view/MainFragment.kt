@@ -29,14 +29,14 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val tabLayoutMediator=TabLayoutMediator(tabLayout_1,deneme_viewpager){tab,poisiton->
+        val tabLayoutMediator=TabLayoutMediator(tabLayout_1,viewpager){tab,poisiton->
             when(poisiton){
                 0 -> tab.text="Nature"
                 1 -> tab.text="Animal"
                 2 -> tab.text="Car"
             }
         }
-        deneme_viewpager.adapter= fragmentManager?.let {
+        viewpager.adapter= fragmentManager?.let {
             MyViewPagerAdapter(childFragmentManager,lifecycle) }
         tabLayoutMediator.attach()
     }

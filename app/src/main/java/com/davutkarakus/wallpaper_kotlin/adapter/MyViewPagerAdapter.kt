@@ -15,13 +15,13 @@ class MyViewPagerAdapter(fragmentManager: FragmentManager,lifecycle: Lifecycle):
     }
 
     override fun createFragment(position: Int): Fragment {
-     when(position){
-            0 ->  return  NatureWallpaperListFragment()
-            1 ->  return  AnimalWallpaperListFragment()
-            2 ->  return  CarWallpaperListFragment()
-          else -> {
-              throw RuntimeException("Invalid position :$position")
-          }
-      }
+        return when(position){
+            0 -> NatureWallpaperListFragment()
+            1 -> AnimalWallpaperListFragment()
+            2 -> CarWallpaperListFragment()
+            else -> {
+                throw RuntimeException("Invalid position :$position")
+            }
+        }
     }
 }

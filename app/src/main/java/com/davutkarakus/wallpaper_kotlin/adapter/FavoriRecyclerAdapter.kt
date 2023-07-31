@@ -31,10 +31,10 @@ class FavoriRecyclerAdapter(var favoList:List<FavoriWallpaperModel?>?):RecyclerV
     }
 
     override fun getItemCount(): Int {
-        if(favoList?.size==null){
-            return 0
+        return if(favoList?.size==null){
+            0
         }else{
-            return favoList!!.size
+            favoList!!.size
         }
 
     }

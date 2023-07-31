@@ -81,7 +81,6 @@ class WallPaperDetailFragment() : Fragment() {
             placeHolderYap(requireContext())
         )
     }
-
     open class OnSwipeTouchListener(ctx: Context) : OnTouchListener {
         private val gestureDetector: GestureDetector
         companion object {
@@ -89,7 +88,6 @@ class WallPaperDetailFragment() : Fragment() {
             private val SWIPE_THRESHOLD = 100
             private val SWIPE_VELOCITY_THRESHOLD = 100
         }
-
         init {
             gestureDetector = GestureDetector(ctx, GestureListener())
         }
