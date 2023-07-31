@@ -10,13 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.davutkarakus.wallpaper_kotlin.R
 import com.davutkarakus.wallpaper_kotlin.adapter.recyclerAdapter
-import com.davutkarakus.wallpaper_kotlin.viewmodel.wallPaperViewModel
+import com.davutkarakus.wallpaper_kotlin.viewmodel.WallPaperViewModel
 import kotlinx.android.synthetic.main.fragment_animal_wall_paper_list.*
 
-class animalWallpaperListFragment : Fragment() {
+class AnimalWallpaperListFragment : Fragment() {
 
     private lateinit var recyclerAdapter: recyclerAdapter
-    private lateinit var viewModel: wallPaperViewModel
+    private lateinit var viewModel: WallPaperViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,23 +32,16 @@ class animalWallpaperListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel= ViewModelProvider(this).get(wallPaperViewModel::class.java)
+        viewModel= ViewModelProvider(this).get(WallPaperViewModel::class.java)
         viewModel.refreshData("animal","80")
         observeLiveData()
     }
     fun observeLiveData(){
         viewModel.bilgiler.observe(viewLifecycleOwner, Observer {
             it?.let {
-                var layoutManager= GridLayoutManager(context,2)
+                val layoutManager= GridLayoutManager(context,2)
                 recyclerVieww.layoutManager=layoutManager
                 recyclerAdapter= recyclerAdapter(it)
-                /*        if(pos!=null){
-                            recyclerView.scrollToPosition(pos!!)
-                            pos=null
-                        }
-
-
-                 */
                 recyclerVieww.adapter=recyclerAdapter
                 recyclerVieww.visibility= View.VISIBLE
             }

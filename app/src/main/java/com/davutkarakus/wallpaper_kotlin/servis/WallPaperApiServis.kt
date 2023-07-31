@@ -1,7 +1,6 @@
 package com.davutkarakus.wallpaper_kotlin.servis
 
-import com.davutkarakus.wallpaper_kotlin.model.newWallpaperModel
-import com.davutkarakus.wallpaper_kotlin.model.wallPaperModel
+import com.davutkarakus.wallpaper_kotlin.model.NewWallpaperModel
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -21,7 +20,7 @@ class WallPaperApiServis {
         .build()
         .create(WallPaperApi::class.java)
 
-    fun getData(query:String,per_page:String):Single<newWallpaperModel>{
+    fun getData(query:String,per_page:String):Single<NewWallpaperModel>{
         return api.getWallPaper(query,per_page)
     }
 }

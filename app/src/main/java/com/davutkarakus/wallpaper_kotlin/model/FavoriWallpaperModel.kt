@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
   @Parcelize
-  data class favoriWallpaperModel (
+  data class FavoriWallpaperModel (
   var image:String?
   ): Parcelable
 

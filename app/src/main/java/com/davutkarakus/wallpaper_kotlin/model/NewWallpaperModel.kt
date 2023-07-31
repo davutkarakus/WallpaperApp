@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class newWallpaperModel(
+data class NewWallpaperModel(
     @SerializedName("next_page")
     val nextPage: String,
     @SerializedName("page")

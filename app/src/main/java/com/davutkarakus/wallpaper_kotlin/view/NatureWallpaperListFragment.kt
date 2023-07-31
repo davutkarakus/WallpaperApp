@@ -10,16 +10,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.davutkarakus.wallpaper_kotlin.R
 import com.davutkarakus.wallpaper_kotlin.adapter.recyclerAdapter
-import com.davutkarakus.wallpaper_kotlin.viewmodel.wallPaperViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+import com.davutkarakus.wallpaper_kotlin.viewmodel.WallPaperViewModel
 import kotlinx.android.synthetic.main.fragment_nature_wall_paper_list.*
 
 
-class natureWallpaperListFragment : Fragment() {
+class NatureWallpaperListFragment : Fragment() {
 
     private lateinit var recyclerAdapter: recyclerAdapter
-    private lateinit var viewModel: wallPaperViewModel
-    var pos:Int?=null
+    private lateinit var viewModel: WallPaperViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -37,14 +35,14 @@ class natureWallpaperListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel= ViewModelProvider(this).get(wallPaperViewModel::class.java)
+        viewModel= ViewModelProvider(this).get(WallPaperViewModel::class.java)
         viewModel.refreshData("nature","80")
         observeLiveData()
     }
     fun observeLiveData(){
         viewModel.bilgiler.observe(viewLifecycleOwner, Observer {
             it?.let {
-                var layoutManager= GridLayoutManager(context,2)
+                val layoutManager= GridLayoutManager(context,2)
                 recyclerView.layoutManager=layoutManager
                 recyclerAdapter= recyclerAdapter(it)
                 recyclerView.adapter=recyclerAdapter

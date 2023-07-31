@@ -1,38 +1,32 @@
 package com.davutkarakus.wallpaper_kotlin.view
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.davutkarakus.wallpaper_kotlin.R
-import com.davutkarakus.wallpaper_kotlin.adapter.favoriRecycler
-import com.davutkarakus.wallpaper_kotlin.model.favoriWallpaperModel
-import com.davutkarakus.wallpaper_kotlin.sharedPref.sharedPref
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_main.*
+import com.davutkarakus.wallpaper_kotlin.adapter.FavoriRecyclerAdapter
+import com.davutkarakus.wallpaper_kotlin.model.FavoriWallpaperModel
+import com.davutkarakus.wallpaper_kotlin.sharedPref.SharedPref
 import kotlinx.android.synthetic.main.fragment_favori.*
 
 
-class favoriFragment() : Fragment() {
-     lateinit var favorirecyclerAdapter: favoriRecycler
-     var favoList:List<favoriWallpaperModel?>?=null
+class FavoriFragment() : Fragment() {
+     lateinit var favorirecyclerAdapter: FavoriRecyclerAdapter
+     var favoList:List<FavoriWallpaperModel?>?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        favoList= sharedPref().readListFromPref(context)
+        favoList= SharedPref().readListFromPref(context)
     }
 
     override fun onResume() {
         super.onResume()
-        favoList=sharedPref().readListFromPref(context)
+        favoList=SharedPref().readListFromPref(context)
         val layoutManager= GridLayoutManager(context,2)
-        favorirecyclerAdapter=favoriRecycler(favoList)
+        favorirecyclerAdapter=FavoriRecyclerAdapter(favoList)
         favoriRecycler.layoutManager=layoutManager
         favoriRecycler.adapter=favorirecyclerAdapter
     }
@@ -46,7 +40,7 @@ class favoriFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager= GridLayoutManager(context,2)
-        favorirecyclerAdapter=favoriRecycler(favoList)
+        favorirecyclerAdapter=FavoriRecyclerAdapter(favoList)
         favoriRecycler.layoutManager=layoutManager
         favoriRecycler.adapter=favorirecyclerAdapter
     }

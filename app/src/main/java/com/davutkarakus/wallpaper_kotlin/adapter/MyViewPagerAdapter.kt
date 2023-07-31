@@ -4,9 +4,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.davutkarakus.wallpaper_kotlin.view.natureWallpaperListFragment
-import com.davutkarakus.wallpaper_kotlin.view.animalWallpaperListFragment
-import com.davutkarakus.wallpaper_kotlin.view.carWallpaperListFragment
+import com.davutkarakus.wallpaper_kotlin.view.NatureWallpaperListFragment
+import com.davutkarakus.wallpaper_kotlin.view.AnimalWallpaperListFragment
+import com.davutkarakus.wallpaper_kotlin.view.CarWallpaperListFragment
 import java.lang.RuntimeException
 
 class MyViewPagerAdapter(fragmentManager: FragmentManager,lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager,lifecycle) {
@@ -16,9 +16,9 @@ class MyViewPagerAdapter(fragmentManager: FragmentManager,lifecycle: Lifecycle):
 
     override fun createFragment(position: Int): Fragment {
      when(position){
-            0 ->  return  natureWallpaperListFragment()
-            1 ->  return  animalWallpaperListFragment()
-            2 ->  return  carWallpaperListFragment()
+            0 ->  return  NatureWallpaperListFragment()
+            1 ->  return  AnimalWallpaperListFragment()
+            2 ->  return  CarWallpaperListFragment()
           else -> {
               throw RuntimeException("Invalid position :$position")
           }

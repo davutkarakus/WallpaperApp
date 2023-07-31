@@ -4,7 +4,6 @@ import android.app.WallpaperManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
@@ -12,17 +11,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.davutkarakus.wallpaper_kotlin.R
-import com.davutkarakus.wallpaper_kotlin.model.favoriWallpaperModel
-import com.davutkarakus.wallpaper_kotlin.sharedPref.sharedPref
+import com.davutkarakus.wallpaper_kotlin.model.FavoriWallpaperModel
+import com.davutkarakus.wallpaper_kotlin.sharedPref.SharedPref
 import com.davutkarakus.wallpaper_kotlin.util.buyukGorselIndir
 import com.davutkarakus.wallpaper_kotlin.util.placeHolderYap
 import kotlinx.android.synthetic.main.recycler_row.*
 
 
-class favoriWallpaperAcFragment : Fragment() {
+class FavoriDetailFragment : Fragment() {
 
     private  var position:Int=0
-    var favoList:List<favoriWallpaperModel?>? = null
+    var favoList:List<FavoriWallpaperModel?>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,14 +38,14 @@ class favoriWallpaperAcFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registerForContextMenu(imageView)
-        favoList= sharedPref().readListFromPref(context)
+        favoList= SharedPref().readListFromPref(context)
         arguments?.let {
-        position=favoriWallpaperAcFragmentArgs.fromBundle(it).position
+        position=FavoriDetailFragmentArgs.fromBundle(it).position
         }
         buyukGorselYap()
         context?.let {
 
-            imageView.setOnTouchListener(object : wallPaperAcFragment.OnSwipeTouchListener(it) {
+            imageView.setOnTouchListener(object : WallPaperDetailFragment.OnSwipeTouchListener(it) {
                 override fun onSwipeRight() {
                     super.onSwipeRight()
                     if (position != 0) {
@@ -70,14 +69,12 @@ class favoriWallpaperAcFragment : Fragment() {
                 override fun onSwipeBottom() {
                     super.onSwipeBottom()
                     val navBuilder = NavOptions.Builder()
-                    val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.favoriFragment,true).build()
-                    val action=favoriWallpaperAcFragmentDirections.actionFavoriWallpaperAcFragmentToFavoriFragment()
+                    val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.FavoriFragment,true).build()
+                    val action=FavoriDetailFragmentDirections.actionFavoriWallpaperAcFragmentToFavoriFragment()
                     Navigation.findNavController(view).navigate(action,navOptions)
                 }
             })
         }
-
-
     }
     fun buyukGorselYap(){
         imageView.buyukGorselIndir(
@@ -96,7 +93,6 @@ class favoriWallpaperAcFragment : Fragment() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
-
             R.id.arka_plan_yap_2->{
                 context?.let {
                     Glide.with(it).asBitmap().load(favoList!![position]!!.image).into(object:
@@ -113,7 +109,7 @@ class favoriWallpaperAcFragment : Fragment() {
                 return true
             }
             R.id.favori_cikar-> {
-                sharedPref().deleteListInPref(context,position,favoList!!)
+                SharedPref().deleteListInPref(context,position,favoList!!)
                 view?.let { Navigation.findNavController(it).popBackStack() }
                 return true
             }

@@ -2,8 +2,7 @@ package com.davutkarakus.wallpaper_kotlin.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.davutkarakus.wallpaper_kotlin.model.newWallpaperModel
-import com.davutkarakus.wallpaper_kotlin.model.wallPaperModel
+import com.davutkarakus.wallpaper_kotlin.model.NewWallpaperModel
 
 import com.davutkarakus.wallpaper_kotlin.servis.WallPaperApiServis
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,8 +10,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class wallPaperViewModel:ViewModel() {
-    var bilgiler=MutableLiveData<newWallpaperModel>()
+class WallPaperViewModel:ViewModel() {
+    var bilgiler=MutableLiveData<NewWallpaperModel>()
     var hataMesaji=MutableLiveData<Boolean>()
     private val wallPaperApiServis=WallPaperApiServis()
     val disposable=CompositeDisposable()
@@ -27,8 +26,8 @@ class wallPaperViewModel:ViewModel() {
             wallPaperApiServis.getData(query,per_page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object :DisposableSingleObserver<newWallpaperModel>(){
-                    override fun onSuccess(t: newWallpaperModel) {
+                .subscribeWith(object :DisposableSingleObserver<NewWallpaperModel>(){
+                    override fun onSuccess(t: NewWallpaperModel) {
                         bilgiler.value=t
                         hataMesaji.value=false
                     }

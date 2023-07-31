@@ -1,9 +1,7 @@
 package com.davutkarakus.wallpaper_kotlin.view
 
-import android.app.Activity
 import android.app.WallpaperManager
 import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.*
@@ -11,33 +9,23 @@ import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.View.OnTouchListener
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.davutkarakus.wallpaper_kotlin.R
 import com.davutkarakus.wallpaper_kotlin.model.*
-import com.davutkarakus.wallpaper_kotlin.sharedPref.sharedPref
+import com.davutkarakus.wallpaper_kotlin.sharedPref.SharedPref
 import com.davutkarakus.wallpaper_kotlin.util.buyukGorselIndir
 import com.davutkarakus.wallpaper_kotlin.util.placeHolderYap
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.recycler_row.*
 
 
-class wallPaperAcFragment() : Fragment() {
-    private lateinit var list:newWallpaperModel
+class WallPaperDetailFragment() : Fragment() {
+    private lateinit var list:NewWallpaperModel
     private  var position:Int=0
-    var favoList=ArrayList<favoriWallpaperModel>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    var favoList=ArrayList<FavoriWallpaperModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,8 +39,8 @@ class wallPaperAcFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         registerForContextMenu(imageView)
         arguments?.let {
-            list = wallPaperAcFragmentArgs.fromBundle(it).url
-            position = wallPaperAcFragmentArgs.fromBundle(it).position
+            list = WallPaperDetailFragmentArgs.fromBundle(it).url
+            position = WallPaperDetailFragmentArgs.fromBundle(it).position
         }
 
         buyukGorselYap()
@@ -80,14 +68,12 @@ class wallPaperAcFragment() : Fragment() {
                 override fun onSwipeBottom() {
                     super.onSwipeBottom()
                     val navBuilder = NavOptions.Builder()
-                    val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.wallPaperAcFragment,true).build()
-                    val action=wallPaperAcFragmentDirections.actionWallPaperAcFragmentToWallPaperListFragment(position)
+                    val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.WallPaperDetailFragment,true).build()
+                    val action=WallPaperDetailFragmentDirections.actionWallPaperAcFragmentToWallPaperListFragment(position)
                     Navigation.findNavController(view).navigate(action,navOptions)
                 }
             })
         }
-
-
     }
     fun buyukGorselYap(){
         imageView.buyukGorselIndir(
@@ -97,9 +83,7 @@ class wallPaperAcFragment() : Fragment() {
     }
 
     open class OnSwipeTouchListener(ctx: Context) : OnTouchListener {
-
         private val gestureDetector: GestureDetector
-
         companion object {
 
             private val SWIPE_THRESHOLD = 100
@@ -111,14 +95,11 @@ class wallPaperAcFragment() : Fragment() {
         }
 
         override fun onTouch(v: View, event: MotionEvent): Boolean {
-
             return gestureDetector.onTouchEvent(event)
         }
 
 
         private inner class GestureListener : SimpleOnGestureListener() {
-
-
             override fun onDown(e: MotionEvent): Boolean {
                 return true
             }
@@ -154,12 +135,8 @@ class wallPaperAcFragment() : Fragment() {
                 }
                 return result
             }
-
-
         }
-
         open fun deneme() {
-
         }
 
         open fun onSwipeRight() {}
@@ -182,7 +159,6 @@ class wallPaperAcFragment() : Fragment() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
-
             R.id.arka_plan->{
                 context?.let {
                     Glide.with(it).asBitmap().load(list.photos[position].src.portrait).into(object:SimpleTarget<Bitmap?>(){
@@ -190,17 +166,11 @@ class wallPaperAcFragment() : Fragment() {
                             resource: Bitmap,
                             transition: Transition<in Bitmap?>?
                         ) {
-                         /*   val wallpapermanager = WallpaperManager.getInstance(it)
-                            wallpapermanager.setBitmap(resource)
-                            val action=wallPaperAcFragmentDirections.actionWallPaperAcFragmentSelf(position,list)
-                            Navigation.findNavController(view).navigate(action)
-
-                          */
                             val wallpapermanager = WallpaperManager.getInstance(it)
                             wallpapermanager.setBitmap(resource)
                             val navBuilder = NavOptions.Builder()
-                            val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.wallPaperAcFragment,true).build()
-                            val action=wallPaperAcFragmentDirections.actionWallPaperAcFragmentSelf(position,list)
+                            val navOptions: NavOptions = navBuilder.setPopUpTo(R.id.WallPaperDetailFragment,true).build()
+                            val action=WallPaperDetailFragmentDirections.actionWallPaperAcFragmentSelf(position,list)
                             Navigation.findNavController(view!!).navigate(action,navOptions)
                         }
                     })
@@ -208,8 +178,8 @@ class wallPaperAcFragment() : Fragment() {
                 return true
             }
             R.id.favori-> {Toast.makeText(context,"Favoriye Eklendi",Toast.LENGTH_LONG).show()
-                favoList.add(favoriWallpaperModel(list.photos[position].src.portrait))
-                sharedPref().writeListInPref(context,favoList)
+                favoList.add(FavoriWallpaperModel(list.photos[position].src.portrait))
+                SharedPref().writeListInPref(context,favoList)
                 return true
             }
             else -> {
